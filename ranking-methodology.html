@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking Methodology - ShareData.app</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6B46C1 0%, #4834B0 100%);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .logo-img {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, #4ADE80, #3B82F6);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .intro {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        td {
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        strong {
+            color: #4ADE80;
+        }
+
+        .conclusion {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 0.75rem;
+            border-left: 4px solid #4ADE80;
+        }
+
+        .popup-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-content {
+            background: #1e1e24;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-title {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .popup-desc {
+            color: #a1a1aa;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #d4d4d8;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #3f3f46;
+            background: #27272a;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-submit {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit:hover {
+            background: #2563eb;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #e4e4e7;
+            border: 1px solid #3f3f46;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #52525b;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            color: #71717a;
+            transition: color 0.2s;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                flex-direction: column;
+                gap: 1.25rem;
+            }
+            
+            .popup-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-img">S</div>
+            <span>ShareData.app</span>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about-us.html" class="nav-link">About Us</a>
+            <a href="beginner-guide.html" class="nav-link">Beginner Guide</a>
+            <a href="ranking-methodology.html" class="nav-link active">Ranking Methodology</a>
+            <a href="#" class="nav-link contact-trigger">Contact</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="content">
+            <h1>How We Rank Bandwidth Sharing Apps</h1>
+            
+            <p class="intro">
+                Welcome to ShareData.app! Our mission is to help you turn your unused internet bandwidth into predictable, passive income.
+            </p>
+
+            <p>
+                To do this, we go beyond simple earnings claims. We meticulously test and evaluate every bandwidth sharing app using a comprehensive scoring system focused entirely on <strong>your experience, security, and financial return.</strong>
+            </p>
+
+            <p>
+                Our evaluation is built on three core categories of metrics: <strong>Financial Return</strong>, <strong>Payout Reliability</strong>, and <strong>Safety & Risk.</strong>
+            </p>
+
+            <hr>
+
+            <h2>💰 Category 1: Financial Return (Maximizing Your Earnings)</h2>
+
+            <p>
+                These metrics determine how much you actually make and how quickly you can access your money. This is the <strong>most heavily weighted</strong> part of our score.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Why It Matters to You</th>
+                        <th>Key Insight We Provide</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Effective Earning Rate (EER)</strong></td>
+                        <td>This is your true paycheck. It's the only way to compare apps with different payment structures.</td>
+                        <td><strong>Average Earnings per Gigabyte (GB) Shared</strong> ($/GB). This is tracked and reported based on real-world usage in various regions.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Minimum Payout Threshold</strong></td>
+                        <td>The "waiting period" before you can touch your money. A lower threshold is always better.</td>
+                        <td>The dollar amount required for withdrawal (e.g., $5, $10, $20). We prioritize apps with the <strong>lowest threshold.</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time to First Payout</strong></td>
+                        <td>The practical amount of time you need to run the app before getting your first deposit.</td>
+                        <td><em>Calculated as:</em> Payout Threshold / Average Daily Earnings. We estimate the time it takes an average user (in days or weeks).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location & IP Premium</strong></td>
+                        <td>Earnings are highly dependent on demand. We identify which apps pay a premium for specific locations (e.g., U.S., Europe) or IP types (Mobile vs. Residential).</td>
+                        <td>Highlights if an app is worth it based on your specific geographical location and network setup.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bonus Earning Features</strong></td>
+                        <td>Non-data-sharing ways to earn.</td>
+                        <td>Credit for <strong>Content Delivery (CD)</strong>, Daily Logins, or integrated <strong>Surveys</strong> can significantly boost your total income.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+            <h2>🔁 Category 2: Payout Reliability & App Consistency</h2>
+
+            <p>
+                It's not enough to earn money; you need to be able to cash out when you want to. These metrics focus on the trust and administrative health of the platform.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Why It Matters to You</th>
+                        <th>Key Insight We Provide</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Payout Failure Rate</strong></td>
+                        <td>The percentage of reported withdrawal requests that were delayed, canceled, or required lengthy support intervention.</td>
+                        <td>Measures the administrative and technical reliability of the platform's payment systems.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Earnings Consistency</strong></td>
+                        <td>How much your earnings fluctuate day-to-day. High volatility makes passive income unpredictable.</td>
+                        <td>We track the variance in daily earnings. A score of <strong>High Consistency</strong> means more predictable passive income.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Method Diversity</strong></td>
+                        <td>The options available for withdrawing your cash.</td>
+                        <td>We rank apps based on support for common methods like <strong>PayPal, Bitcoin/Crypto (JMPT), and Gift Cards.</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Customer Support Quality</strong></td>
+                        <td>How quickly and effectively the app's support team resolves issues, especially payment problems.</td>
+                        <td>Average response time and resolution rate based on user reports and our own testing.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+            <h2>🛡️ Category 3: Safety, Security, & Risk Mitigation</h2>
+
+            <p>
+                When you share your IP, you are giving up a piece of your network privacy. We evaluate the non-financial risks you face.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Why It Matters to You</th>
+                        <th>Key Insight We Provide</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IP Reputation Risk Score</strong></td>
+                        <td>Your IP address could get flagged as a "known proxy," leading to CAPTCHAs, bans on banking/streaming sites, or security alerts.</td>
+                        <td>We assess how aggressive the app is and its history of blacklisting incidents. <strong>Low Risk</strong> is essential.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Traffic Transparency</strong></td>
+                        <td>Knowing <em>what</em> is using your bandwidth ensures it isn't used for illegal or questionable activities.</td>
+                        <td>We verify the app's official clients (e.g., market research, ad verification) and report on any claims of misuse or lack of clarity.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Device Overhead</strong></td>
+                        <td>The hidden cost of running the app. High CPU/RAM usage can affect your primary work and increase electricity costs.</td>
+                        <td>We measure the application's resource consumption to ensure the earnings aren't offset by high operating costs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multi-Device/IP Limits</strong></td>
+                        <td>Your ability to scale your earnings by running the app on multiple devices or networks in your household.</td>
+                        <td>We verify the explicit limits set by the provider (e.g., "3 devices per IP" or "Unlimited devices").</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="conclusion">
+                <p>
+                    By applying these rigorous standards, <strong>ShareData.app</strong> delivers unbiased, actionable reviews so you can confidently choose the best and most secure apps for your passive income journey.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <div class="popup-modal" id="contactPopup">
+        <div class="popup-content">
+            <button class="close-btn">&times;</button>
+            <h2 class="popup-title">Contact Us</h2>
+            <p class="popup-desc">Fill out the form below to contact us. We will get back to you as soon as possible.</p>
+            
+            <form id="contactForm" onsubmit="event.preventDefault(); document.getElementById('contactPopup').style.display='none'; alert('Message sent!');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Message</label>
+                    <textarea class="form-control" rows="4" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Send Message</button>
+                    <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Popup Logic
+        const popup = document.getElementById('contactPopup');
+        const triggers = document.querySelectorAll('.contact-trigger');
+        const closeBtn = document.querySelector('.close-btn');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                popup.style.display = 'flex';
+            });
+        });
+
+        closeBtn.addEventListener('click', closePopup);
+        cancelBtn.addEventListener('click', closePopup);
+
+        window.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+

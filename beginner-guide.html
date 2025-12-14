@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner's Guide - ShareData.app</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6B46C1 0%, #4834B0 100%);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .logo-img {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, #4ADE80, #3B82F6);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #4ADE80;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.125rem;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.125rem;
+        }
+        
+        strong {
+            color: #fff;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 3rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        td {
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        blockquote {
+            border-left: 4px solid #4ADE80;
+            background: rgba(74, 222, 128, 0.1);
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        a {
+            color: #4ADE80;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .popup-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-content {
+            background: #1e1e24;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-title {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .popup-desc {
+            color: #a1a1aa;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #d4d4d8;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #3f3f46;
+            background: #27272a;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-submit {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit:hover {
+            background: #2563eb;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: #e4e4e7;
+            border: 1px solid #3f3f46;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #52525b;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            color: #71717a;
+            transition: color 0.2s;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                flex-direction: column;
+                gap: 1.25rem;
+            }
+            
+            .popup-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-img">S</div>
+            <span>ShareData.app</span>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about-us.html" class="nav-link">About Us</a>
+            <a href="beginner-guide.html" class="nav-link active">Beginner Guide</a>
+            <a href="ranking-methodology.html" class="nav-link">Ranking Methodology</a>
+            <a href="#" class="nav-link contact-trigger">Contact</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="content">
+            <h1>💰 Beginner's Guide: Start Earning Passive Income with Bandwidth Sharing Apps</h1>
+            
+            <p>If you're looking for an easy, no-effort way to make a little extra money, you've come to the right place. Bandwidth sharing apps allow you to sell your unused internet capacity—the bandwidth you pay for but don't always use—in exchange for cash.</p>
+            
+            <p>This guide will explain exactly what these apps do, how you get paid, and the simple steps to get started today.</p>
+
+            <hr>
+
+            <h2>💡 Chapter 1: What Exactly is Bandwidth Sharing?</h2>
+            
+            <p>Every time you pay your Internet Service Provider (ISP), you are purchasing a set amount of data capacity (your bandwidth) that you can use for browsing, streaming, and downloading. For most people, a large portion of this capacity goes unused, especially overnight or when you are at work.</p>
+            
+            <p><strong>Bandwidth sharing</strong> is the simple act of securely leasing out this idle capacity to vetted third parties using a specialized app installed on your device.</p>
+            
+            <h3>How Does it Work?</h3>
+            <ol>
+                <li><strong>You Install the App:</strong> You download and install a lightweight app (like Honeygain or EarnApp) on your computer or phone.</li>
+                <li><strong>The App Connects:</strong> The app creates a secure connection that allows its clients to route data traffic through your device.</li>
+                <li><strong>Clients Use Your Connection:</strong> These clients use your IP address to perform simple, legitimate tasks:
+                    <ul>
+                        <li><strong>Market Research:</strong> Checking the price of goods in different regions.</li>
+                        <li><strong>Ad Verification:</strong> Making sure ads are correctly displayed on websites.</li>
+                        <li><strong>Content Delivery:</strong> Helping people download files faster by distributing the load.</li>
+                    </ul>
+                </li>
+                <li><strong>You Get Paid:</strong> The app compensates you for every bit of data that passes through your connection. This is entirely passive—you just let the app run!</li>
+            </ol>
+
+            <hr>
+
+            <h2>💸 Chapter 2: Setting Realistic Expectations</h2>
+            
+            <p>Bandwidth sharing is an ideal source of <strong>passive income</strong>, but it will not replace a full-time job.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Expectation</th>
+                        <th>Reality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>High Earnings</strong></td>
+                        <td><strong>Low, Consistent Earnings.</strong> Expect to earn anywhere from <strong>$5 to $30 per month</strong> per device, depending on your location and the app's demand.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Effort Required</strong></td>
+                        <td><strong>Zero Effort.</strong> Once set up, the app runs silently in the background. Your only job is to leave it running.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Instant Payout</strong></td>
+                        <td><strong>Wait Time Required.</strong> Most apps have a minimum payout threshold (e.g., $20) that may take a few weeks or months to reach.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internet Speed Impact</strong></td>
+                        <td><strong>Minimal Impact.</strong> The apps are designed to only use unused capacity, meaning your streaming or browsing should not be affected.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+            <h2>🔒 Chapter 3: Safety and Security Checklist</h2>
+            
+            <p>Your primary concern should be safety. By sharing your IP address, you need assurance that your connection is used only for legitimate purposes.</p>
+            
+            <ul>
+                <li><strong>Vetting Clients:</strong> Reputable apps have a strict process for vetting the companies (clients) that use your bandwidth. We only review apps that have clear <strong>Traffic Transparency.</strong></li>
+                <li><strong>Encrypted Connection:</strong> All shared traffic must be fully <strong>encrypted</strong> (like a secure VPN) so that the app cannot see your personal browsing history, and clients cannot see your identity.</li>
+                <li><strong>Minimal Overhead:</strong> The app should be lightweight and use minimal CPU or battery, ensuring it doesn't slow down your device or drive up your electricity bill.</li>
+                <li><strong>IP Reputation:</strong> Apps should manage their traffic wisely to prevent your IP address from being blacklisted by banks or streaming services.</li>
+            </ul>
+
+            <hr>
+
+            <h2>✅ Chapter 4: Your 3-Step Starter Guide</h2>
+            
+            <p>Ready to get started? It only takes a few minutes!</p>
+            
+            <h3>Step 1: Choose Your First App</h3>
+            <p>We recommend starting with one of our <strong>Top-Ranked Apps</strong> which offers a low minimum payout and a reliable track record (refer to our main rankings page).</p>
+            
+            <blockquote>
+                <strong>Pro Tip:</strong> Look for apps with the lowest <strong>Minimum Payout Threshold</strong> (e.g., $5 or $10) so you can get paid faster and verify the app's legitimacy for yourself.
+            </blockquote>
+            
+            <h3>Step 2: Download and Install</h3>
+            <ul>
+                <li>Visit the official website of the chosen app.</li>
+                <li>Download the installer for your main device (PC, Mac, or Android phone).</li>
+                <li>Sign up for a free account. <strong>Use a strong, unique password!</strong></li>
+                <li>Follow the simple on-screen instructions to install and launch the application.</li>
+            </ul>
+            
+            <h3>Step 3: Check Your Earnings</h3>
+            <ul>
+                <li>The app will begin running silently and automatically, using your internet connection as needed.</li>
+                <li>Keep the app open (or running in the background) 24/7 for maximum earnings.</li>
+                <li>Check your dashboard daily to track your earnings grow. When you hit the minimum threshold, you can request a cash-out via PayPal, Crypto, or another supported method!</li>
+            </ul>
+
+            <hr>
+
+            <p style="text-align: center; font-size: 1.25rem;"><strong>Ready to start earning?</strong> Head over to our <a href="index.html">Rankings Page</a> and find the best app for your device and location!</p>
+        </div>
+    </main>
+
+    <div class="popup-modal" id="contactPopup">
+        <div class="popup-content">
+            <button class="close-btn">&times;</button>
+            <h2 class="popup-title">Contact Us</h2>
+            <p class="popup-desc">Fill out the form below to contact us. We will get back to you as soon as possible.</p>
+            
+            <form id="contactForm" onsubmit="event.preventDefault(); document.getElementById('contactPopup').style.display='none'; alert('Message sent!');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Message</label>
+                    <textarea class="form-control" rows="4" required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Send Message</button>
+                    <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Popup Logic
+        const popup = document.getElementById('contactPopup');
+        const triggers = document.querySelectorAll('.contact-trigger');
+        const closeBtn = document.querySelector('.close-btn');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                popup.style.display = 'flex';
+            });
+        });
+
+        closeBtn.addEventListener('click', closePopup);
+        cancelBtn.addEventListener('click', closePopup);
+
+        window.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+
+</html>
