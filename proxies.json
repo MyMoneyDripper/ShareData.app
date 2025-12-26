@@ -90,7 +90,7 @@
     "referralProgram": "Referral Link / Code",
     "availableCountries": "Global",
     "platformSupported": "Windows, macOS, Android, Docker",
-    "status": "somewhat",
+    "status": "good",
     "trustPilotScore": 2.7,
     "playStoreReview": "3.7",
     "appStoreReview": "N/A"
@@ -234,7 +234,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Android, Desktop builds (community)",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 3.5,
     "playStoreReview": "3.7",
     "appStoreReview": "4.6"
@@ -250,7 +250,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Linux (servers), Docker",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 3.7,
     "playStoreReview": "3",
     "appStoreReview": "N/A"
@@ -285,22 +285,6 @@
     "status": "no",
     "trustPilotScore": "N/A",
     "playStoreReview": "N/A",
-    "appStoreReview": "N/A"
-  },
-  {
-    "name": "Meson Network",
-    "url": "https://meson.network",
-    "payoutRate": "Variable (MSN)",
-    "minimumPayout": "Varies",
-    "payoutMethod": "MSN token",
-    "signUpBonus": "Not Stated",
-    "registrationRequired": "Yes",
-    "referralProgram": "Not Stated",
-    "availableCountries": "Global",
-    "platformSupported": "Linux servers",
-    "status": "somewhat",
-    "trustPilotScore": 0,
-    "playStoreReview": "4.1",
     "appStoreReview": "N/A"
   },
   {
@@ -346,7 +330,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Linux servers",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 3.2,
     "playStoreReview": "N/A",
     "appStoreReview": "3.3"
@@ -378,7 +362,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Linux servers",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": "N/A",
     "playStoreReview": "N/A",
     "appStoreReview": "N/A"
@@ -410,7 +394,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Linux servers",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 3.1,
     "playStoreReview": "4",
     "appStoreReview": "N/A"
@@ -458,7 +442,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Windows, macOS, Linux",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 1.9,
     "playStoreReview": "4.5",
     "appStoreReview": "N/A"
@@ -506,7 +490,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Linux servers",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": "N/A",
     "playStoreReview": "N/A",
     "appStoreReview": "N/A"
@@ -554,7 +538,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Selected countries/regions",
     "platformSupported": "Windows, macOS, Linux",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 4.1,
     "playStoreReview": "N/A",
     "appStoreReview": "N/A"
@@ -570,7 +554,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "USA focused (pilot)",
     "platformSupported": "Dedicated hardware",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 3.5,
     "playStoreReview": "4.6",
     "appStoreReview": "N/A"
@@ -602,7 +586,7 @@
     "referralProgram": "Not Stated",
     "availableCountries": "Global",
     "platformSupported": "Android (mobile app)",
-    "status": "somewhat",
+    "status": "no",
     "trustPilotScore": 4,
     "playStoreReview": "N/A",
     "appStoreReview": "N/A"
