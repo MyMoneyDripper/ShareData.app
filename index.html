@@ -344,13 +344,16 @@
             margin-bottom: 0.25rem;
         }
 
-        .platform-name a {
+        .platform-name a,
+        .platform-name .platform-link {
             color: #fff;
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
-        .platform-name a:hover {
+        .platform-name a:hover,
+        .platform-name .platform-link:hover {
             color: #4ADE80;
         }
 
@@ -1094,7 +1097,7 @@
 
                 // Only make green (good) and yellow (somewhat) platforms clickable
                 const platformNameHtml = (platform.status === 'good' || platform.status === 'somewhat') 
-                    ? `<a href="${platform.url}" target="_blank" rel="noopener noreferrer">${platform.name}</a>`
+                    ? `<span class="platform-link" data-url="${platform.url}">${platform.name}</span>`
                     : platform.name;
 
                 return `
@@ -1124,6 +1127,18 @@
             `}).join('');
 
             platformList.innerHTML = html;
+            
+            // Add click handlers for platform links to prevent URL preview in status bar
+            document.querySelectorAll('.platform-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = link.getAttribute('data-url');
+                    if (url) {
+                        // Navigate to redirect page with the target URL as parameter
+                        window.location.href = `redirect.html?url=${encodeURIComponent(url)}`;
+                    }
+                });
+            });
         }
 
         function showError(message) {

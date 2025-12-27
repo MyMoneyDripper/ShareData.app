@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6B46C1 0%, #4834B0 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .redirect-container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .countdown {
+            font-size: 8rem;
+            font-weight: 700;
+            margin: 2rem 0;
+            background: linear-gradient(to right, #4ADE80, #3B82F6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1s ease-in-out;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        .destination {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            word-break: break-all;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .countdown {
+                font-size: 5rem;
+            }
+            
+            .message {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="message">Redirecting in</div>
+        <div class="countdown" id="countdown">3</div>
+        <div class="destination" id="destination"></div>
+    </div>
+
+    <script>
+        // Get URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetUrl = urlParams.get('url');
+
+        if (!targetUrl) {
+            document.querySelector('.message').textContent = 'Invalid redirect URL';
+            document.getElementById('countdown').textContent = '!';
+            document.getElementById('destination').textContent = 'Please go back and try again.';
+        } else {
+            // Decode the URL
+            const decodedUrl = decodeURIComponent(targetUrl);
+            document.getElementById('destination').textContent = ``;
+
+            let countdown = 3;
+            const countdownElement = document.getElementById('countdown');
+
+            // Countdown animation
+            const timer = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    countdownElement.textContent = countdown;
+                    // Reset animation
+                    countdownElement.style.animation = 'none';
+                    setTimeout(() => {
+                        countdownElement.style.animation = 'pulse 1s ease-in-out';
+                    }, 10);
+                } else {
+                    clearInterval(timer);
+                    countdownElement.textContent = 'Go!';
+                    // Redirect after a brief pause
+                    setTimeout(() => {
+                        window.location.href = decodedUrl;
+                    }, 300);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+
