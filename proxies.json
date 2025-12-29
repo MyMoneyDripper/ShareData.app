@@ -18,7 +18,7 @@
   {
     "name": "Honeygain",
     "url": "https://join.honeygain.com/MYMONAAF",
-    "payoutRate": "$1 per GB",
+    "payoutRate": "$0.10 per GB",
     "minimumPayout": "$20",
     "payoutMethod": "PayPal, JMPT",
     "signUpBonus": "$3",
@@ -98,9 +98,9 @@
   {
     "name": "Cash Raven",
     "url": "https://cashraven.io/",
-    "payoutRate": "$1 for every 10gb",
+    "payoutRate": "$0.10 per GB",
     "minimumPayout": "$10",
-    "payoutMethod": "PayPal, ACH, and Amazon Gift Card",
+    "payoutMethod": "PayPal, ACH, Gift Card",
     "signUpBonus": "Not Stated",
     "registrationRequired": "Yes",
     "referralProgram": "Referral Link / Code",
