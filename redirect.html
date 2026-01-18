@@ -75,12 +75,45 @@
         }
 
         @media (max-width: 768px) {
+            .redirect-container {
+                padding: 1.5rem;
+            }
+
             .message {
                 font-size: 1.5rem;
             }
             
             .icon {
                 font-size: 3rem;
+            }
+
+            .submessage {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .redirect-container {
+                padding: 1rem;
+            }
+
+            .message {
+                font-size: 1.25rem;
+            }
+            
+            .icon {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .submessage {
+                font-size: 0.85rem;
+            }
+
+            .spinner {
+                width: 32px;
+                height: 32px;
+                border-width: 3px;
             }
         }
     </style>
